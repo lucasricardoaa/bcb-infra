@@ -1,0 +1,82 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "S3Bootstrap",
+      "Effect": "Allow",
+      "Action": [
+        "s3:CreateBucket",
+        "s3:HeadBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::bcb-pipeline-raw",
+        "arn:aws:s3:::bcb-pipeline-staging",
+        "arn:aws:s3:::bcb-pipeline-analytics"
+      ]
+    },
+    {
+      "Sid": "ECRAuth",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:GetAuthorizationToken"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ECRPush",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:CreateRepository",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload",
+        "ecr:PutImage"
+      ],
+      "Resource": "arn:aws:ecr:us-east-1:${account_id}:repository/bcb-raw-to-staging"
+    },
+    {
+      "Sid": "LambdaDeploy",
+      "Effect": "Allow",
+      "Action": [
+        "lambda:CreateFunction",
+        "lambda:UpdateFunctionCode",
+        "lambda:UpdateFunctionConfiguration",
+        "lambda:GetFunction"
+      ],
+      "Resource": "arn:aws:lambda:us-east-1:${account_id}:function:bcb-raw-to-staging"
+    },
+    {
+      "Sid": "LambdaPassRole",
+      "Effect": "Allow",
+      "Action": [
+        "iam:PassRole"
+      ],
+      "Resource": "arn:aws:iam::${account_id}:role/bcb-lambda-role"
+    },
+    {
+      "Sid": "GlueSetup",
+      "Effect": "Allow",
+      "Action": [
+        "glue:CreateDatabase",
+        "glue:CreateTable",
+        "glue:UpdateTable"
+      ],
+      "Resource": [
+        "arn:aws:glue:us-east-1:${account_id}:catalog",
+        "arn:aws:glue:us-east-1:${account_id}:database/bcb_pipeline",
+        "arn:aws:glue:us-east-1:${account_id}:table/bcb_pipeline/*"
+      ]
+    },
+    {
+      "Sid": "AthenaSettings",
+      "Effect": "Allow",
+      "Action": [
+        "athena:UpdateWorkGroup",
+        "athena:GetWorkGroup"
+      ],
+      "Resource": "arn:aws:athena:us-east-1:${account_id}:workgroup/bcb-dbt"
+    }
+  ]
+}

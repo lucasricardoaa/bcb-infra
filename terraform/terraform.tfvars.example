@@ -1,0 +1,17 @@
+# terraform.tfvars.example
+# Copie este arquivo para terraform.tfvars e preencha os valores.
+# NUNCA versione terraform.tfvars — ele está no .gitignore.
+
+# ID da conta AWS — OBRIGATÓRIO (sem default)
+aws_account_id = "YOUR_AWS_ACCOUNT_ID"
+
+# Organização ou usuário GitHub — OBRIGATÓRIO (sem default)
+# Usado na trust policy da role IAM para autenticação OIDC do GitHub Actions
+github_org = "your-github-username"
+
+# Email para alertas de custo do AWS Budget — OBRIGATÓRIO (sem default)
+alert_email = "your@email.com"
+
+# Opcionais (padrões definidos em variables.tf):
+# aws_region        = "us-east-1"
+# github_repo_infra = "bcb-infra"

@@ -1,0 +1,43 @@
+# Terraform — diretórios gerados localmente
+.terraform/
+
+# State files — nunca versionar (backend remoto no S3)
+*.tfstate
+*.tfstate.backup
+
+# Arquivo de variáveis com valores reais — nunca versionar
+*.tfvars
+# Exceção: o arquivo de exemplo é versionado
+!*.tfvars.example
+
+# Variáveis de ambiente locais
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# macOS
+.DS_Store
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Documentos privados (diário de sessões, relatórios internos)
+docs/private/
+
+# Nota: .terraform.lock.hcl é VERSIONADO intencionalmente
+# para garantir reprodutibilidade das versões de providers.
+# Não incluir no .gitignore.

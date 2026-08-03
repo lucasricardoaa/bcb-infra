@@ -1,0 +1,170 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "TerraformState",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::bcb-infra-terraform-state",
+        "arn:aws:s3:::bcb-infra-terraform-state/*"
+      ]
+    },
+    {
+      "Sid": "TerraformLock",
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:DeleteItem"
+      ],
+      "Resource": "arn:aws:dynamodb:us-east-1:${account_id}:table/bcb-infra-terraform-locks"
+    },
+    {
+      "Sid": "S3ManagedBuckets",
+      "Effect": "Allow",
+      "Action": [
+        "s3:CreateBucket",
+        "s3:DeleteBucket",
+        "s3:GetBucketLocation",
+        "s3:GetBucketVersioning",
+        "s3:PutBucketVersioning",
+        "s3:GetBucketPublicAccessBlock",
+        "s3:PutBucketPublicAccessBlock",
+        "s3:GetEncryptionConfiguration",
+        "s3:PutEncryptionConfiguration",
+        "s3:GetLifecycleConfiguration",
+        "s3:PutLifecycleConfiguration",
+        "s3:ListBucket",
+        "s3:GetBucketTagging",
+        "s3:PutBucketTagging"
+      ],
+      "Resource": [
+        "arn:aws:s3:::bcb-pipeline-raw",
+        "arn:aws:s3:::bcb-pipeline-staging",
+        "arn:aws:s3:::bcb-pipeline-analytics",
+        "arn:aws:s3:::bcb-warehouse"
+      ]
+    },
+    {
+      "Sid": "IAMManaged",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetUser",
+        "iam:CreateUser",
+        "iam:DeleteUser",
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion",
+        "iam:CreatePolicy",
+        "iam:DeletePolicy",
+        "iam:ListPolicyVersions",
+        "iam:AttachUserPolicy",
+        "iam:DetachUserPolicy",
+        "iam:ListAttachedUserPolicies",
+        "iam:GetRole",
+        "iam:CreateRole",
+        "iam:DeleteRole",
+        "iam:UpdateRole",
+        "iam:GetRolePolicy",
+        "iam:PutRolePolicy",
+        "iam:DeleteRolePolicy",
+        "iam:ListRolePolicies",
+        "iam:ListAttachedRolePolicies",
+        "iam:PassRole",
+        "iam:TagUser",
+        "iam:UntagUser",
+        "iam:TagRole",
+        "iam:UntagRole",
+        "iam:TagPolicy",
+        "iam:UntagPolicy",
+        "iam:GetOpenIDConnectProvider",
+        "iam:CreateOpenIDConnectProvider",
+        "iam:DeleteOpenIDConnectProvider",
+        "iam:AddClientIDToOpenIDConnectProvider",
+        "iam:UpdateOpenIDConnectProviderThumbprint"
+      ],
+      "Resource": [
+        "arn:aws:iam::${account_id}:user/bcb-*",
+        "arn:aws:iam::${account_id}:role/bcb-*",
+        "arn:aws:iam::${account_id}:policy/bcb-*",
+        "arn:aws:iam::${account_id}:oidc-provider/token.actions.githubusercontent.com"
+      ]
+    },
+    {
+      "Sid": "GlueManaged",
+      "Effect": "Allow",
+      "Action": [
+        "glue:GetDatabase",
+        "glue:CreateDatabase",
+        "glue:DeleteDatabase",
+        "glue:UpdateDatabase",
+        "glue:GetTable",
+        "glue:CreateTable",
+        "glue:DeleteTable",
+        "glue:UpdateTable",
+        "glue:GetJob",
+        "glue:CreateJob",
+        "glue:DeleteJob",
+        "glue:UpdateJob",
+        "glue:TagResource",
+        "glue:UntagResource",
+        "glue:GetTags"
+      ],
+      "Resource": [
+        "arn:aws:glue:us-east-1:${account_id}:catalog",
+        "arn:aws:glue:us-east-1:${account_id}:database/bcb_pipeline",
+        "arn:aws:glue:us-east-1:${account_id}:database/bcb_warehouse",
+        "arn:aws:glue:us-east-1:${account_id}:table/bcb_pipeline/*",
+        "arn:aws:glue:us-east-1:${account_id}:table/bcb_warehouse/*",
+        "arn:aws:glue:us-east-1:${account_id}:job/bcb-staging-transform"
+      ]
+    },
+    {
+      "Sid": "AthenaManaged",
+      "Effect": "Allow",
+      "Action": [
+        "athena:GetWorkGroup",
+        "athena:CreateWorkGroup",
+        "athena:DeleteWorkGroup",
+        "athena:UpdateWorkGroup",
+        "athena:TagResource",
+        "athena:UntagResource",
+        "athena:ListTagsForResource"
+      ],
+      "Resource": "arn:aws:athena:us-east-1:${account_id}:workgroup/bcb-dbt"
+    },
+    {
+      "Sid": "SecretsManagerManaged",
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:CreateSecret",
+        "secretsmanager:DeleteSecret",
+        "secretsmanager:UpdateSecret",
+        "secretsmanager:PutSecretValue",
+        "secretsmanager:TagResource",
+        "secretsmanager:UntagResource",
+        "secretsmanager:ListSecretVersionIds"
+      ],
+      "Resource": [
+        "arn:aws:secretsmanager:us-east-1:${account_id}:secret:bcb/dbt/athena-config-*",
+        "arn:aws:secretsmanager:us-east-1:${account_id}:secret:bcb/airflow/aws-credentials-*"
+      ]
+    },
+    {
+      "Sid": "BudgetsManaged",
+      "Effect": "Allow",
+      "Action": [
+        "budgets:ViewBudget",
+        "budgets:ModifyBudget"
+      ],
+      "Resource": "arn:aws:budgets::${account_id}:budget/bcb-infra-monthly-budget"
+    }
+  ]
+}
