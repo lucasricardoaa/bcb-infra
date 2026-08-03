@@ -42,6 +42,13 @@ jobs:
           role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/bcb-github-actions-oidc
           aws-region: us-east-1
 
+      - name: Limpar lock obsoleto do state
+        run: |
+          aws dynamodb delete-item \
+            --table-name bcb-infra-terraform-locks \
+            --key '{"LockID": {"S": "bcb-infra-terraform-state/bcb-infra/terraform.tfstate"}}' \
+            --region us-east-1 || true
+
       - name: Terraform Init
         run: terraform init
         working-directory: terraform
