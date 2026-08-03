@@ -1,5 +1,7 @@
 # bcb-infra
 
+[![Terraform Apply](https://github.com/lucasricardoaa/bcb-infra/actions/workflows/terraform-apply.yml/badge.svg)](https://github.com/lucasricardoaa/bcb-infra/actions/workflows/terraform-apply.yml)
+
 Infraestrutura como código (Terraform + GitHub Actions) para os projetos do portfólio BCB.
 
 Provisiona e gerencia os recursos AWS dos Projetos 1 (bcb-pipeline) e 2 (bcb-warehouse):
