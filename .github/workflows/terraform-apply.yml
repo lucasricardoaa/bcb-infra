@@ -18,6 +18,10 @@ jobs:
     name: Terraform Apply
     runs-on: ubuntu-latest
     environment: production
+    timeout-minutes: 10
+
+    env:
+      TF_LOG: ERROR
 
     steps:
       - name: Checkout
