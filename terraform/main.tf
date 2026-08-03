@@ -15,10 +15,12 @@ module "s3" {
 # Módulo IAM — user e policies do bcb-pipeline-dev, role bcb-lambda-role
 # ---------------------------------------------------------------------------
 module "iam" {
-  source            = "./modules/iam"
-  aws_account_id    = var.aws_account_id
-  github_org        = var.github_org
-  github_repo_infra = var.github_repo_infra
+  source               = "./modules/iam"
+  aws_account_id       = var.aws_account_id
+  github_org           = var.github_org
+  github_user_id       = var.github_user_id
+  github_repo_infra    = var.github_repo_infra
+  github_repo_infra_id = var.github_repo_infra_id
 }
 
 # ---------------------------------------------------------------------------

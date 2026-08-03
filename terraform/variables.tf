@@ -31,10 +31,22 @@ variable "github_org" {
   # Sem default — deve ser fornecido explicitamente em terraform.tfvars
 }
 
+variable "github_user_id" {
+  description = "ID numérico do usuário/org GitHub (usado na trust policy OIDC — novo formato de sub claim)"
+  type        = string
+  # Obter via: gh api user --jq '.id'
+}
+
 variable "github_repo_infra" {
   description = "Nome do repositório GitHub do bcb-infra (usado na trust policy OIDC)"
   type        = string
   default     = "bcb-infra"
+}
+
+variable "github_repo_infra_id" {
+  description = "ID numérico do repositório bcb-infra no GitHub (usado na trust policy OIDC — novo formato de sub claim)"
+  type        = string
+  # Obter via: gh api repos/OWNER/bcb-infra --jq '.id'
 }
 
 variable "alert_email" {

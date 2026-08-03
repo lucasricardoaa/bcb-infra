@@ -9,6 +9,14 @@ aws_account_id = "YOUR_AWS_ACCOUNT_ID"
 # Usado na trust policy da role IAM para autenticação OIDC do GitHub Actions
 github_org = "your-github-username"
 
+# ID numérico do usuário/org GitHub — OBRIGATÓRIO
+# Obtido via: gh api user --jq '.id'
+github_user_id = "YOUR_GITHUB_USER_ID"
+
+# ID numérico do repositório bcb-infra — OBRIGATÓRIO
+# Obtido via: gh api repos/OWNER/bcb-infra --jq '.id'
+github_repo_infra_id = "YOUR_REPO_ID"
+
 # Email para alertas de custo do AWS Budget — OBRIGATÓRIO (sem default)
 alert_email = "your@email.com"
 

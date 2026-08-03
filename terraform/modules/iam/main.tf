@@ -195,7 +195,9 @@ resource "aws_iam_role" "github_actions_oidc" {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:${var.github_org}/${var.github_repo_infra}:*"
+            # Novo formato de sub claim do GitHub OIDC (desde 2025): inclui IDs numéricos.
+            # Formato: repo:ORG@USER_ID/REPO@REPO_ID:ref_or_environment
+            "token.actions.githubusercontent.com:sub" = "repo:${var.github_org}@${var.github_user_id}/${var.github_repo_infra}@${var.github_repo_infra_id}:*"
           }
         }
       }
