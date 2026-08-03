@@ -42,7 +42,8 @@
         "s3:PutLifecycleConfiguration",
         "s3:ListBucket",
         "s3:GetBucketTagging",
-        "s3:PutBucketTagging"
+        "s3:PutBucketTagging",
+        "s3:GetBucketPolicy"
       ],
       "Resource": [
         "arn:aws:s3:::bcb-pipeline-raw",
@@ -150,7 +151,8 @@
         "secretsmanager:PutSecretValue",
         "secretsmanager:TagResource",
         "secretsmanager:UntagResource",
-        "secretsmanager:ListSecretVersionIds"
+        "secretsmanager:ListSecretVersionIds",
+        "secretsmanager:GetResourcePolicy"
       ],
       "Resource": [
         "arn:aws:secretsmanager:us-east-1:${account_id}:secret:bcb/dbt/athena-config-*",
@@ -162,7 +164,8 @@
       "Effect": "Allow",
       "Action": [
         "budgets:ViewBudget",
-        "budgets:ModifyBudget"
+        "budgets:ModifyBudget",
+        "budgets:ListTagsForResource"
       ],
       "Resource": "arn:aws:budgets::${account_id}:budget/bcb-infra-monthly-budget"
     }
